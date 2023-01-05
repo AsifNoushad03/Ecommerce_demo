@@ -1,0 +1,76 @@
+<section>
+    <div class="container">
+        <form action="" method="post" id="checkout-form">
+            <div class="row">
+                <div class="col-md-6 mt-2 col-12">
+                    <h2 class="">Enter Delivery Details</h2>
+
+                    <div class="form-group">
+                        <label for=""> Address</label>
+                        <input type="text" class="form-control" name="Address" placeholder="Address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Pincode</label>
+                        <input type="number" class="form-control" name="Pincode" placeholder="Enter Pincode" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Mobile Number</label>
+                        <input type="text" class="form-control" name="Mobile" placeholder="Enter Mobile Number" required>
+                        <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="container mt-5 ml-5 checkout    text-left">
+                        <h5 class="mt-2">Total Amount : Rs.{{total}}</h5>
+                        <hr>
+                        <div class="payment">
+                            <p>Payment Method</p>
+                            <label class="radio-inline">
+                                <input type="radio" name="payment-method" value="COD"> COD
+                            </label><br>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right mt-5">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    
+    $('#checkout-form').submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/place-order',
+            method:'post',
+            data:$('#checkout-form').serialize(),
+            success:(response)=>{
+                alert(response)
+                if(response.status){
+                    location.href='/order-sucess'
+                }
+            }
+        })
+    })
+</script>
+<style>
+    input[type=radio]{
+        width: 20px;
+        height: 20px;
+    }
+    label .radio-inline{
+        display: flex;
+        align-items: center;
+
+    }
+    .checkout{
+        border: 1px solid;
+        border-radius: 3px;
+        padding: 30px;
+    }
+    .payment{
+        padding-bottom: 16px;
+    }
+</style>
